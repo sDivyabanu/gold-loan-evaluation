@@ -1,0 +1,35 @@
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({ children }) => {
+  const [isValid, setIsValid] = useState(null); // null = loading
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    async function validateToken() {
+      try {
+        const res = await fetch("http://localhost:3000/", {
+          headers: {
+            Authorization:token,
+          },
+        });
+        setIsValid(res.ok);
+      } catch {
+        setIsValid(false);
+      }
+    }
+
+    if (token) {
+      validateToken();
+    } else {
+      setIsValid(false);
+    }
+  }, [token]);
+
+  if (isValid === null) return <div>Loading...</div>;
+  if (!isValid) return <Navigate to="/Login" replace />;
+
+  return children;
+};
+
+export default ProtectedRoute;
