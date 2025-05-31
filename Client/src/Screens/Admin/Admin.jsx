@@ -15,7 +15,8 @@ const AdminPanel = () => {
           headers: {
             authorization: `${localStorage.getItem('token')}`,
             Email: `${localStorage.getItem('Email')}`,
-            Pass: `${localStorage.getItem('Pass')}`
+            Pass: `${localStorage.getItem('Pass')}`,
+            email2:username
           }
         })
         if (r.ok) {
