@@ -56,7 +56,7 @@ Adminrouter.post('/SendNotifications', async (req, res) => {
 // Fix: fs.ensureDirSync doesn't exist in native fs module, we need to create directory manually
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const username = req.headers.email
+        const username = req.headers.email2
         const userFolder = path.join(__dirname, "..", "uploads", "reports", username);
 
         // Create folder if it doesn't exist
@@ -104,7 +104,7 @@ Adminrouter.get('/upload-pdf',async(req,res)=>{
 
 Adminrouter.post("/upload-pdf", upload.single("file"), async (req, res) => {
     try {
-        const username = req.headers.email;
+        const username = req.headers.email2;
 
         if (!username) {
             return res.status(400).json({
