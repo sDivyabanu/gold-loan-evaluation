@@ -1,219 +1,144 @@
-import React from "react";
-import Home from "../assets/Landing/Home.svg"
-import Contact from "../assets/Landing/Contact.svg"
-import phone from "../assets/Landing/phone-outline.svg"
-import mail from "../assets/Landing/material-symbols_mail-outline.svg"
+import React, { useState, useEffect } from "react"; 
 import { Link } from "react-router-dom";
-import imag from "../assets/Comments/Frame 4.svg"
-import { useState,useEffect } from "react";
+import Home from "../assets/Landing/Home.svg";
+import Contact from "../assets/Landing/Contact.svg";
+import phone from "../assets/Landing/phone-outline.svg";
+import mail from "../assets/Landing/material-symbols_mail-outline.svg";
+import imag from "../assets/Comments/Frame 4.svg";
 
 function Landing() {
-   
-    function Signout() {
-        localStorage.clear()
-        window.location.href = "/Login"
-    }
-    return (
-        
-        <div className="relative">
-                    <div className="Nav  h-14 bg-black text-white flex justify-between items-center" >
-                <div className="nav-left">
-                    <img src={Home} className="size-6 ml-2"></img>
-                    
-                </div>
-                {localStorage.getItem('Role')==="USER"?
-                <div className="nav-right font-Afacad flex gap-12">
-                    <Link to="/Book" ><div>Book Appointment</div></Link>
-                    <Link to="/Dashboard" ><div>My Dashboard</div></Link>
-                    <div>Contact Us</div>
-                    {localStorage.length != null && <div onClick={() => { Signout() }} className="cursor-pointer" >Signout</div>}
-                    <img src={Contact} className="size-6 mr-2"></img>
-                </div>:
-                <div className="nav-right font-Afacad flex gap-12">
-                    <Link to="/Admin/Appointment" ><div>All Appointment</div></Link>
-                    <Link to="/Admin/loan" ><div>Loan Application</div></Link>
-                    <div>Contact Us</div>
-                    {localStorage.length != null && <div onClick={() => { Signout() }} className="cursor-pointer" >Signout</div>}
-                    <img src={Contact} className="size-6 mr-2"></img>
-                </div>}
-            </div>
+  function Signout() {
+    localStorage.clear();
+    window.location.href = "/Login";
+  }
 
-            <div className="Main">
-                <div className="Top-text flex flex-col items-center gap-6 ">
-                    <p className="text-4xl font-Fraunces mt-10 ">Get your Gold evaluated with Trust And Transparency</p>
-                    <span className="text-3xl">“Book an appointment today and get your gold professioally evaluated”</span>
-                    <Link to="/Book" > <button className="px-12 py-3 text-white rounded-xl bg-black">Book an Appointment</button></Link>
-                </div>
-
-            </div>
-
-            <div>
-                <span className="text-3xl ml-16" >How it Works ?</span>
-            </div>
-
-            {/* This div contains the how it works and customer reviews */}
-            <div className="flex">
-                <div className="w-1/2 mt-6 ml-20" >
-
-                    <div className="flex">
-                        <div className="bg-black size-16 rounded-full text-white text-center text-3xl py-3 ">
-                           1
-                        </div>
-                        <div className="flex flex-col ml-3">
-
-                            <span className="text-2xl">
-                                Apply for a loan
-                            </span>
-                            <span className="text-slate-500">
-                                Visit  your bank and apply for a loan
-                            </span>
-                        </div>
-                    </div>
-                    <div className="bg-black w-0.5 h-32 ml-8 " >
-                        .
-                    </div>
-                    <div className="flex">
-                        <div className="bg-black size-16 rounded-full text-white text-center text-3xl py-3 ">
-                           2
-                        </div>
-                        <div className="flex flex-col ml-3">
-
-                            <span className="text-2xl">
-                               Book an Appointment
-                            </span>
-                            <span className="text-slate-500">
-                                Schedule your gold evaluation online
-                            </span>
-                        </div>
-                    </div>
-                    <div className="bg-black w-0.5 h-32 ml-8 " >
-                        .
-                    </div>
-                    <div className="flex">
-                        <div className="bg-black size-16 rounded-full text-white text-center text-3xl py-3 ">
-                           3
-                        </div>
-                        <div className="flex flex-col ml-3">
-
-                            <span className="text-2xl">
-                                Gold Evaluation
-                            </span>
-                            <span className="text-slate-500">
-                                Bring your gold to us for evaluation
-                            </span>
-                        </div>
-                    </div>
-                    <div className="bg-black w-0.5 h-32 ml-8 " >
-                        .
-                    </div>
-                    <div className="flex">
-                        <div className="bg-black size-16 rounded-full text-white text-center text-3xl py-3 ">
-                           4
-                        </div>
-                        <div className="flex flex-col ml-3">
-
-                            <span className="text-2xl">
-                               View Evaluation
-                            </span>
-                            <span className="text-slate-500">
-                                See the estimated value on your dashboard
-                            </span>
-                        </div>
-                    </div>
-                    <div className="bg-black w-0.5 h-32 ml-8 " >
-                        .
-                    </div>
-                    <div className="flex">
-                        <div className="bg-black size-16 rounded-full text-white text-center text-3xl py-3 ">
-                           5
-                        </div>
-                        <div className="flex flex-col ml-3">
-
-                            <span className="text-2xl">
-                              Accept or Reject
-                            </span>
-                            <span className="text-slate-500">
-                                Decide if you accept the value
-                            </span>
-                        </div>
-                    </div>
-                    <div className="bg-black w-0.5 h-32 ml-8 " >
-                        .
-                    </div>
-                    <div className="flex">
-                        <div className="bg-black size-16 rounded-full text-white text-center text-3xl py-3 ">
-                           5
-                        </div>
-                        <div className="flex flex-col ml-3">
-
-                            <span className="text-2xl">
-                                Apply for a loan
-                            </span>
-                            <span className="text-slate-500">
-                                Visit  your bank and apply for a loan
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="w-1/2 bg-[#D8D8D8] flex h-[65rem] flex-col  items-center rounded-3xl mr-10 ">
-                    <span className="text-3xl mt-5">
-                        Customer Review
-                    </span>
-                    <div className="w-3/4 h-full flex flex-col mt-10 gap-3 overflow-auto mb-10"  >
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        <img src={imag} className=""></img>
-                        {/* <img src={imag} className=""></img> */}
-                        
-                    </div>
-                </div>
-            </div>
-
-            <div className="Footer h-55 bg-black absolute mt-10 right-0 left-0 " >
-                <div className="text-white flex justify-evenly my-5 font-Afacad text-md">
-                    <span>About Us</span>
-                    <span>|</span>
-                    <span>FAQ's</span>
-                    <span>|</span>
-                    <span>Terms & Conditions</span>
-                    <span>|</span>
-                    <span>Privacy Policy</span>
-                </div>
-                <div className="Phone-number flex justify-center">
-                    <div className="flex text-white gap-10 mt-4 " >
-                        <div className="flex items-center gap-3">
-                            <img src={phone} className="size-4 mt-0.5"></img>
-                            <span>+91 9899045677</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <img src={phone} className="size-4 mt-0.5" ></img>
-                            <span>+91 9899045677</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <img src={phone} className="size-4 mt-0.5"></img>
-                            <span>+91 9899045677</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="mail flex items-center justify-center mt-5 gap-2 text-white">
-                    <img src={mail} className="size-4 mt-1"></img>
-                    <span>helloworld123@gmail.com</span>
-                </div>
-                <div className="flex text-white justify-center mt-5 text-sm">
-                    <span>Copyrights © 2025 nameeeeeeee. All rights reserved.</span>
-                </div>
-            </div>
+  return (
+    <div className="relative font-sans text-gray-900 bg-white">
+      {/* Navbar */}
+      <nav className="h-16 bg-black text-white flex justify-between items-center px-4 shadow-md z-10 sticky top-0">
+        <img src={Home} className="w-6" alt="Home" />
+        <div className="flex items-center gap-6 text-sm">
+          {localStorage.getItem("Role") === "USER" ? (
+            <>
+              <Link to="/Book">Book Appointment</Link>
+              <Link to="/Dashboard">My Dashboard</Link>
+              <span className="cursor-pointer">Contact Us</span>
+              <span
+                className="cursor-pointer hover:text-red-400"
+                onClick={Signout}
+              >
+                Signout
+              </span>
+              <img src={Contact} className="w-5" alt="Contact" />
+            </>
+          ) : (
+            <>
+              <Link to="/Admin/Appointment">All Appointment</Link>
+              <Link to="/Admin/loan">Loan Application</Link>
+              <span className="cursor-pointer">Contact Us</span>
+              <span
+                className="cursor-pointer hover:text-red-400"
+                onClick={Signout}
+              >
+                Signout
+              </span>
+              <img src={Contact} className="w-5" alt="Contact" />
+            </>
+          )}
         </div>
-    )
+      </nav>
+
+      
+      <section className="flex flex-col items-center justify-center text-center gap-6 py-16 px-6 bg-gradient-to-br from-yellow-50 to-white">
+        <h1 className="text-5xl font-semibold leading-tight max-w-4xl">
+          Get your Gold evaluated with <span className="text-yellow-600">Trust</span> and <span className="text-yellow-600">Transparency</span>
+        </h1>
+        <p className="text-xl max-w-2xl">“Book an appointment today and get your gold professionally evaluated”</p>
+        <Link to="/Book">
+          <button className="px-10 py-3 bg-yellow-600 text-white text-lg rounded-full shadow-md hover:shadow-lg transition-transform hover:scale-105">
+            Book an Appointment
+          </button>
+        </Link>
+      </section>
+
+    
+      <section className="flex flex-col lg:flex-row px-10 py-16 gap-10">
+    
+        <div className="w-full lg:w-2/3 flex flex-col gap-14 relative translate-x-16 animate-fade-in-up">
+          {[
+            "Apply for a loan",
+            "Book an Appointment",
+            "Gold Evaluation",
+            "View Evaluation",
+            "Accept or Reject",
+            "Apply for a loan"
+          ].map((title, index) => (
+            <div key={index} className="relative flex items-start gap-6 group">
+              <div className="w-16 h-16 bg-black text-white flex items-center justify-center rounded-full text-xl font-bold z-10 shadow-lg">
+                {index + 1}
+              </div>
+              <div className="transition-transform duration-700 ease-in-out group-hover:scale-[1.02] group-hover:translate-x-1">
+                <h3 className="text-3xl font-medium leading-tight tracking-tight group-hover:text-yellow-600 transition-colors duration-300">
+                  {title}
+                </h3>
+                <p className="text-md text-gray-600 mt-1">{
+                  index === 1 ? "Schedule your gold evaluation online"
+                    : index === 3 ? "See the estimated value on your dashboard"
+                    : index === 4 ? "Decide if you accept the value"
+                    : "Visit your bank and apply for a loan"
+                }</p>
+              </div>
+              
+              {index < 5 && (
+                <div className="absolute left-7 top-16 w-0.5 bg-black h-36 animate-pulse-slow rounded-full"></div>
+              )}
+            </div>
+          ))}
+        </div>
+
+      
+        <div className="w-full lg:w-1/3 bg-gray-100 rounded-3xl p-4 h-[60rem] flex flex-col items-center overflow-y-auto shadow-inner -translate-x-4 animate-fade-in-left">
+          <h3 className="text-xl font-semibold mb-4 text-center">Customer Reviews</h3>
+          <div className="flex flex-col gap-2 items-center w-full px-2">
+            {Array.from({ length: 10 }).map((_, idx) => (
+              <img
+                src={imag}
+                alt={`Review ${idx + 1}`}
+                key={idx}
+                className="w-full rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+    
+      <footer className="bg-black text-white text-sm py-8">
+        <div className="flex flex-wrap justify-center gap-4 mb-4">
+          <span>About Us</span>
+          <span>|</span>
+          <span>FAQ's</span>
+          <span>|</span>
+          <span>Terms & Conditions</span>
+          <span>|</span>
+          <span>Privacy Policy</span>
+        </div>
+        <div className="flex justify-center gap-10 mb-4">
+          {[1, 2, 3].map((num) => (
+            <div className="flex items-center gap-2" key={num}>
+              <img src={phone} className="w-4" alt="Phone" />
+              <span>+91 9899045677</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex justify-center items-center gap-2 mb-2">
+          <img src={mail} className="w-4" alt="Mail" />
+          <span>helloworld123@gmail.com</span>
+        </div>
+        <p className="text-center text-xs mt-4">&copy; 2025 nameeeeeeee. All rights reserved.</p>
+      </footer>
+    </div>
+  );
 }
 
 export default Landing;
