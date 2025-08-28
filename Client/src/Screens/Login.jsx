@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 function Login() {
- 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -30,7 +30,7 @@ function Login() {
         localStorage.setItem("Email", response.Email);
         localStorage.setItem("Role", response.role);
         toast.success("Successfully logged in!");
-          window.location.href = "/";
+         navigate("/");
       } else {
         toast.error("Invalid credentials");
       }
