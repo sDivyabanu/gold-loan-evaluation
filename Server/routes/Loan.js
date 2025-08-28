@@ -32,7 +32,7 @@ const storage = multer.diskStorage({
 LoanRouter.post('/LoanApplication',upload.any(),async (req, res) => {
     try{
         const {fullName,dob,gender,marital,father,mobile,email,currentAddress,permanentAddress,city,state,pincode,selectedBank,goldType,goldPurity,goldWeight}=req.body
-
+        console.log(req.body.fullName)
         await Loan.create({
             Fullname:fullName,
             DateOfBirth:dob,

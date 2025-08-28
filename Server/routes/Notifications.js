@@ -5,7 +5,7 @@ const NotificationRouter = express.Router();
 
 NotificationRouter.get('/', async (req, res) => {
     const userEmail = req.headers.email;
-    
+    console.log("This is Notifications router and the user is", userEmail);
 
     if (!userEmail) {
         return res.status(400).json({ error: "Missing email in request headers" });

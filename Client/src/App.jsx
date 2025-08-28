@@ -17,7 +17,6 @@ import Loan from './Screens/Loan.jsx'
 import AdminAppointment from './Screens/Admin/AdminAppointment.jsx'
 import ProtectedRoute from './Screens/Protector/Protector.jsx'
 import ProfilePage from './Screens/Profile.jsx'
-import AdminNotification from './Screens/Admin/AdminNotification.jsx'
 import AdminRoute from './Screens/Protector/AdminProtector.jsx'
 
 import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
@@ -74,7 +73,6 @@ function App(){
         <Route path="/Admin/Upload" element={<AdminRoute><AdminPanel></AdminPanel></AdminRoute>}  />
         <Route path="/Admin/GoldEvaluation" element={<AdminRoute><AdminGold></AdminGold></AdminRoute>}  />
         <Route path="/Admin/Appointment" element={<AdminRoute><AdminAppointment></AdminAppointment></AdminRoute>} />
-        <Route path="/Admin/Notification" element={<AdminRoute><AdminNotification></AdminNotification></AdminRoute>} />
         <Route path="/Admin/loan" element={<AdminRoute><AdminLoans></AdminLoans></AdminRoute>}  />
         <Route path="/Admin/loan/:id" element={<AdminRoute><Loans></Loans></AdminRoute>} />
         <Route path="*" element={<NotFound></NotFound>} />

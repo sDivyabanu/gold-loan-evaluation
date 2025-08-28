@@ -30,16 +30,12 @@ UserRouter.use('/Loan',LoanRouter)
 
 
 // Login Route
-UserRouter.get('/:id',async(req,res)=>{
+UserRouter.get('/',(req,res)=>{
     try{
-        
-        const id=req.params.id;
-        const data=await model.find({Email:id})
-        console.log(data)
-        res.status(200).json({message:"Success",data:data})
+        res.status(200)
     }
     catch(err){
-        res.status(500).json({message:"Internal Server Error"})
+        res.status(400)
 
     }
     
