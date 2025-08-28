@@ -33,32 +33,32 @@ function AdminLoans() {
 
     useEffect(() => { Request() }, [])
 
-    // async function deleteApp(id) {
-    //     try {
-    //         console.log("Delete request sent ", id)
-    //         const r = await fetch('http://localhost:3000/Admin/Appointments', {
-    //             method: "DELETE",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 Authorization: `${localStorage.getItem('token')}`,
-    //                 Email: `${localStorage.getItem('Email')}`,
-    //                 Pass: `${localStorage.getItem('Pass')}`
-    //             },
-    //             body: JSON.stringify({ data: id })
-    //         });
+    async function deleteApp(id) {
+        try {
+            console.log("Delete request sent ", id)
+            const r = await fetch('http://localhost:3000/Admin/Appointments', {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `${localStorage.getItem('token')}`,
+                    Email: `${localStorage.getItem('Email')}`,
+                    Pass: `${localStorage.getItem('Pass')}`
+                },
+                body: JSON.stringify({ data: id })
+            });
 
-    //         if (r.ok) {
-    //             const response = await r.json();
-    //             console.log("Successfully Deleted Appointment");
-    //             await Request()
+            if (r.ok) {
+                const response = await r.json();
+                console.log("Successfully Deleted Appointment");
+                await Request()
 
-    //         } else {
-    //             console.log("Error in Deleting");
-    //         }
-    //     } catch (error) {
-    //         console.log("Deletion Failed:", error);
-    //     }
-    // }
+            } else {
+                console.log("Error in Deleting");
+            }
+        } catch (error) {
+            console.log("Deletion Failed:", error);
+        }
+    }
     async function View(id) {
         try {
 

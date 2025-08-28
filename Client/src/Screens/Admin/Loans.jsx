@@ -9,6 +9,7 @@ function Loans() {
     
     const [data, setdata] = useState([])
     const [files, setfiles] = useState([])
+    const[forward,setForward]=useState(true)
     const { id } = useParams()
     async function Request() {
         try {
@@ -26,6 +27,7 @@ function Loans() {
             if (r.ok) {
                 setdata(response.Data)
                 setfiles(response.files)
+                if(!response.files){setForward(false)}
 
                 toast.success("Successfully Fetched the Data");
             } else {
@@ -99,19 +101,26 @@ function Loans() {
                     <div className="mt-4">
                         <span className="text-sm text-gray-500 ">Reports</span>
                         <div>
-                            
-                        {files.map((item,index)=>(
-                            <div>
-                
-                            <a href={"http://localhost:3000/uploads/Loan/"+data.Email+"/"+item} className="text-lg font-medium " download><p>Report {index+1} </p></a>
-                            </div>
-                        ))}
+                        {files?
+                            files.map((item,index)=>(
+                                <div>
+                                
+                                <a href={"http://localhost:3000/uploads/Loan/"+data.Email+"/"+item} className="text-lg font-medium " download><p>Report {index+1} </p></a>
+                                </div>
+                            )):
+                            <div>No Reports Exist</div>
+                        }
                         </div>
                     </div>
                     <div className="flex justify-center">
-                    <button className=" bg-green-500 text-white p-1 px-2 rounded-md" onClick={()=>{
+
+
+                    {files?
+                    <button className=" bg-green-500 text-white p-1 px-2 rounded-md cursor-pointer" onClick={()=>{
                         Forward(data.Email)
-                    }}> Forward to Bank</button>
+                    }}> Forward to Bank</button>:<div>Cant forward without reports</div>
+                } 
+                
                     </div>
                 </div>
             </div>

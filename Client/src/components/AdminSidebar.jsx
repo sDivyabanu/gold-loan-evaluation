@@ -20,7 +20,7 @@ function AdminSidebar() {
                     <Link to='/'> <div className="flex gap-2 w-3xl"> <img src={Booking}></img> Home </div> </Link>
                    <Link to="/Admin/Upload"> <div className="flex gap-2 w-3xl "><img src={Frame}></img>Upload Report</div></Link>
                    <Link to="/Admin/GoldEvaluation" ><div className="flex gap-2 w-3xl"><img src={Measure}></img>Gold Valuation</div></Link>
-                    <Link to='/Admin/Notifications' ><div className="flex gap-2 w-3xl"><img src={Notification}></img>Notifications </div></Link>
+                    <Link to='/Admin/Notification' ><div className="flex gap-2 w-3xl"><img src={Notification}></img>Notifications </div></Link>
                     <Link to='/Admin/Loan'> <div className="flex gap-2 w-3xl"> <img src={Booking}></img>Loans </div> </Link>
                 </div>
             </div>
