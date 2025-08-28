@@ -5,7 +5,6 @@ import GoldModel from "../Models/GoldEvaluation.js";
 const Dashrouter = express.Router();
 
 Dashrouter.get('/', async (req, res) => {
-    console.log("This is dashboard router");
 
     try {
         const userEmail = req.headers.email;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Cal from "../../assets/Dashboard/Group2.svg"
 import list from "../../assets/Dashboard/list.svg"
 import clock from "../../assets/Dashboard/clock.svg"
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import AdminSidebar from "../../components/AdminSidebar";
 
 function AdminAppointment() {
@@ -51,7 +53,9 @@ function AdminAppointment() {
             if (r.ok) {
                 const response = await r.json();
                 console.log("Successfully Deleted Appointment");
+                
                 await Request()
+                toast.success("Appointment Deleted")
 
             } else {
                 console.log("Error in Deleting");
@@ -121,6 +125,7 @@ function AdminAppointment() {
                     }
                 </div>
             </div>
+            <ToastContainer/>
         </div>
     );
 }
