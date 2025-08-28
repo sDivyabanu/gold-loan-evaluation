@@ -1,88 +1,95 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
+  // Sample default user info (can be fetched from an API)
+  const [user, setUser] = useState({
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    bio: 'Gold Loan Evaluator at XYZ Bank',
+    profileImage: 'https://i.pravatar.cc/150?img=3',
+  });
 
-  useEffect(() => {
-    // Fetch user from backend (replace with your API)
-    const fetchUser = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:3000/user/${localStorage.getItem("Email")}`,
-          {
-            headers: {
-              Authorization: `${localStorage.getItem("token")}`,
-              Email: `${localStorage.getItem("Email")}`,
-              Role: `${localStorage.getItem("Role")}`,
-            },
-          }
-        );
-        const data = await res.json();
-        setUser(data);
-        console.log(data.data[0]);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-    fetchUser();
-  }, []);
+  const [editMode, setEditMode] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
 
-  if (!user) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-white text-black">
-        <p className="animate-pulse">Loading profile...</p>
-      </div>
-    );
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewImage(imageUrl);
+    }
+  };
+
+  const handleSave = () => {
+    setEditMode(false);
+    if (previewImage) {
+      setUser((prev) => ({ ...prev, profileImage: previewImage }));
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-white text-black flex items-center justify-center p-6">
-      <div className="max-w-2xl w-full bg-white rounded-lg shadow-md p-8 border border-black">
-        {/* Header Section */}
-        <div className="flex items-center gap-6">
-          <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-xl font-bold border border-black">
-            {user.data[0].FullName.charAt(0).toUpperCase()}
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">{user.data[0].FullName}</h1>
-            <p className="text-sm text-gray-700">{user.data[0].role}</p>
-          </div>
-        </div>
+    <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
+      <div className="text-center">
+        <img
+          src={previewImage || user.profileImage}
+          alt="Profile"
+          className="w-24 h-24 rounded-full mx-auto object-cover"
+        />
+        {editMode && (
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="mt-2"
+          />
+        )}
+        <h2 className="text-xl font-semibold mt-4">{user.name}</h2>
+        <p className="text-gray-500">{user.email}</p>
+      </div>
 
-        {/* Divider */}
-        <div className="my-6 border-t border-black"></div>
+      <div className="mt-6">
+        <label className="block text-sm font-medium text-gray-700">Bio</label>
+        {editMode ? (
+          <textarea
+            name="bio"
+            value={user.bio}
+            onChange={handleChange}
+            className="w-full p-2 mt-1 border rounded"
+          />
+        ) : (
+          <p className="mt-1 text-gray-600">{user.bio}</p>
+        )}
+      </div>
 
-        {/* User Info */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <p className="text-sm text-gray-600">Email</p>
-            <p className="font-semibold">{user.data[0].Email}</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-600">Phone</p>
-            <p className="font-semibold">{user.data[0].PhoneNumber}</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-600">Aadhaar</p>
-            <p className="font-semibold tracking-wider">{user.data[0].Aadhaar}</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-600">Account Created</p>
-            <p className="font-semibold">
-              {new Date(user.data[0].createdAt).toLocaleDateString()}
-            </p>
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="mt-8 flex justify-between">
-          <button className="px-5 py-2 rounded-lg border border-black hover:bg-black hover:text-white transition">
+      <div className="mt-6 flex justify-between">
+        {editMode ? (
+          <>
+            <button
+              onClick={handleSave}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setEditMode(false)}
+              className="px-4 py-2 bg-gray-300 text-gray-800 rounded"
+            >
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => setEditMode(true)}
+            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          >
             Edit Profile
           </button>
-          <button className="px-5 py-2 rounded-lg border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition">
-            Logout
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );

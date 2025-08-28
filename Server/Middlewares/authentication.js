@@ -27,6 +27,7 @@ function checkForAuthAndCookie() {
         return res.status(403).json({ error: "Email does not match token" });
       }
 
+      console.log("Authenticated and passed");
       req.user = userPayload; 
       
       next();
