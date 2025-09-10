@@ -5,12 +5,13 @@ import dotenv from "dotenv";
 import path, { dirname } from "path";
 import cors from "cors";
 import { fileURLToPath } from "url";
-import fs from "fs";
+import fs, { existsSync } from "fs";
 import GoldDetails from "../Models/GoldDetails.js";
 import model from "../Models/Appointments.js"
 import Loan from "../Models/Loan.js";
 import transporter from "../Transporter/Transporter.js";
 import bodyParser from "body-parser";
+import usermodel from "../Models/user.js";
 
 
 dotenv.config();
@@ -94,7 +95,7 @@ const upload = multer({ storage });
 Adminrouter.get('/upload-pdf',async(req,res)=>{
     try {
         const data = await model.find({},{user:true,_id:false})
-        console.log(data)
+        
         res.status(200).json({message:"Successfully fetched",data:data})
     } catch (error) {
         res.status(400).json({error:"An Error occured"})
@@ -207,7 +208,7 @@ Adminrouter.delete('/Appointments', async (req, res) => {
 })
 Adminrouter.patch('/Appointments', async (req, res) => {
     const { data } = req.body
-    console.log(data)
+    
     try {
         const r = await model.findByIdAndUpdate(data, { Status: "Completed" })
         
@@ -233,9 +234,14 @@ Adminrouter.get('/loan/:id', async (req, res) => {
     try {
         const id = req.params.id
         const LoanData = await Loan.findById(id)
-        const files=fs.readdirSync(path.join(__dirname,`../uploads/Loan/${LoanData.Email}`))
+        if(existsSync(path.join(__dirname,`../uploads/Loan/${LoanData.Email}`))){
+            const files=fs.readdirSync(path.join(__dirname,`../uploads/Loan/${LoanData.Email}`))
+            res.status(200).json({ Data: LoanData,files:files })
+        }else{
+
+            res.status(200).json({message:"Files Doesnt Exist",Data:LoanData})
+        }
         
-        res.status(200).json({ Data: LoanData,files:files })
     } catch (error) {
         console.log(error)
         res.status(400).json({ Error:"An Error occured" })
@@ -253,7 +259,7 @@ Adminrouter.get('/loan/:id/forward', async (req, res) => {
             path: path.join(folderPath, file),
         }));
         Object.entries(LoanData).map(([key, value]) => {
-            console.log(key, value)
+           
         })
         const mailOptions = {
             from: 'niranjanskailas@gmail.com',
@@ -291,5 +297,38 @@ Adminrouter.get('/loan/:id/forward', async (req, res) => {
 
     }
 })
+
+Adminrouter.get("/get-user",async(req,res)=>{
+    try {
+        const user_data=await usermodel.find({},{Email:true})
+        res.status(200).json({data:user_data,message:"Successfully Fetched"})
+    } catch (error) {
+        res.status(500).json({message:"Internal Server Error"})
+    }
+})
+
+Adminrouter.post("/send-notification", async (req, res) => {
+  try {
+    console.log("Send Notification received");
+    console.log(req.body);
+
+    const { username, message } = req.body;  
+
+    if (!username || !message) {
+      return res.status(400).json({ success: false, message: "Username and message are required" });
+    }
+
+    let r = await notifimodel.create({
+      user: username,
+      Notification: message
+    });
+
+    res.json({ success: true, message: "Notification saved successfully", data: r });
+  } catch (error) {
+    console.error("Error saving notification:", error);
+    res.status(500).json({ success: false, message: "Server error while saving notification" });
+  }
+});
+
 
 export default Adminrouter;

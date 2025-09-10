@@ -112,14 +112,7 @@ function Appointment() {
                             </div>
                         </div>
 
-                        <div className="mt-4">
-                            <label className="text-lg font-semibold mb-2 block">Upload Document:</label>
-                            <input
-                                type="file"
-                                className="bg-white w-full max-w-xs px-3 py-2 rounded-md border-2 shadow-sm"
-                                name="files"
-                            />
-                        </div>
+                        
 
                         <div className="flex justify-center">
                             <button

@@ -20,6 +20,7 @@ import ProfilePage from './Screens/Profile.jsx'
 import AdminRoute from './Screens/Protector/AdminProtector.jsx'
 
 import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
+import AdminNotification from './Screens/Admin/AdminNotification.jsx'
 
 
 function App(){
@@ -75,6 +76,7 @@ function App(){
         <Route path="/Admin/Appointment" element={<AdminRoute><AdminAppointment></AdminAppointment></AdminRoute>} />
         <Route path="/Admin/loan" element={<AdminRoute><AdminLoans></AdminLoans></AdminRoute>}  />
         <Route path="/Admin/loan/:id" element={<AdminRoute><Loans></Loans></AdminRoute>} />
+        <Route path="/Admin/Notifications" element={<AdminRoute><AdminNotification></AdminNotification></AdminRoute>} />
         <Route path="*" element={<NotFound></NotFound>} />
 
       </Routes>

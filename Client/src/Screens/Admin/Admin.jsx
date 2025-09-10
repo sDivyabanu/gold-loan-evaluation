@@ -41,12 +41,14 @@ const AdminPanel = () => {
       headers: {
         authorization: `${localStorage.getItem('token')}`,
         Email: `${localStorage.getItem('Email')}`,
-        Pass: `${localStorage.getItem('Pass')}`
+        Pass: `${localStorage.getItem('Pass')}`,
+        email2:username
       }
-    }).then((result) => { console.log(result.json()) });
+    })
 
 
-    const data = response.json()
+    const data =await response.json()
+    
 
     alert(data.message);
   };
